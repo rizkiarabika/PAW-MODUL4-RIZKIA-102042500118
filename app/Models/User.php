@@ -20,13 +20,17 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'role',
         'email',
         'password',
         // TODO 1: Tambahkan kolom 'role' pada properti $fillable
     ];
 
     // TODO 1: Tambahkan method relasi peminjaman() (One-to-Many ke model Peminjaman)
-
+    public function peminjaman()
+    {
+        return $this->hasMany(\App\Models\Peminjaman::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -68,6 +68,7 @@
                 <thead>
                     <tr>
                         <th class="ps-3" style="width: 50px;">No</th>
+                        <th class="text-center" style="width: 100px;">Sampul</th>
                         {{-- TODO 9: Tambahkan header kolom Sampul --}}
                         <th>Judul Buku</th>
                         <th>Penulis</th>
@@ -81,6 +82,16 @@
                     @forelse($buku as $index => $item)
                         <tr>
                             <td class="ps-3 text-muted">{{ $buku->firstItem() + $index }}</td>
+                            <td class="text-center">
+                                @if($item->cover)
+                                    <img src="{{ asset('storage/' . $item->cover) }}"
+                                        alt="Sampul {{ $item->judul }}"
+                                        class="img-thumbnail"
+                                        style="width: 50px; height: 70px; object-fit: cover;">
+                                @else
+                                    <span class="text-muted small">Tidak ada</span>
+                                @endif
+                            </td>
                             {{-- TODO 9: Tampilkan thumbnail sampul buku ($item->cover) jika ada menggunakan asset('storage/' . $item->cover) --}}
                             <td class="fw-semibold text-dark">{{ $item->judul }}</td>
                             <td>{{ $item->penulis }}</td>
@@ -111,7 +122,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center py-4 text-muted">
+                            <td colspan="9" class="text-center py-4 text-muted">
                                 @if(request('search'))
                                     Buku dengan kata kunci <strong>"{{ request('search') }}"</strong> tidak ditemukan.
                                 @else

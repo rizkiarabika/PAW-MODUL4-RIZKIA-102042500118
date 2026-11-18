@@ -16,7 +16,7 @@
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 {{-- TODO 8: Tambahkan atribut enctype="multipart/form-data" pada form di bawah ini --}}
-                <form action="{{ route('buku.update', $buku->id) }}" method="POST">
+                <form action="{{ route('buku.update', $buku->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -62,6 +62,34 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Sampul Buku Saat Ini</label>
+
+                        @if ($buku->cover)
+                            <div class="mb-3">
+                                <img src="{{ asset('storage/' . $buku->cover) }}"
+                                    alt="Sampul Buku"
+                                    class="img-thumbnail"
+                                    style="max-width: 200px; max-height: 250px;">
+                            </div>
+                        @else
+                            <p class="text-muted small">Belum ada sampul buku.</p>
+                        @endif
+
+                        <label for="cover" class="form-label fw-semibold">Ganti Sampul Buku</label>
+                        <input type="file"
+                            class="form-control @error('cover') is-invalid @enderror"
+                            id="cover"
+                            name="cover"
+                            accept="image/jpeg,image/png,image/jpg">
+
+                        @error('cover')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+
+                        <small class="text-muted">Format JPG, JPEG, atau PNG. Maksimal 2 MB. Kosongkan jika tidak ingin mengganti sampul.</small>
                     </div>
 
                     {{-- TODO 8: Tampilkan gambar sampul saat ini ($buku->cover) dan sediakan input file untuk mengganti sampul --}}

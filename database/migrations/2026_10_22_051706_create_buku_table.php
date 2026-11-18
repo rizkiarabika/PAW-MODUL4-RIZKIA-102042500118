@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('penerbit', 100);
             $table->year('tahun_terbit');
             $table->integer('stok');
+            $table->string('cover')->nullable();
             $table->timestamps();
         });
     }
